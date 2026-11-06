@@ -1,0 +1,21 @@
+{
+  "max_steps": 12,
+  "max_tool_calls": 10,
+  "max_json_repairs": 2,
+  "max_reviews": 2,
+  "duration": {
+    "zh_chars_per_second": 4.2,
+    "en_words_per_second": 2.5,
+    "transition_seconds": 0.2,
+    "min_shot_seconds": 2.0
+  },
+  "llm": {
+    "timeout_seconds": 90,
+    "temperature": 0.2,
+    "max_tokens": 2000
+  },
+  "defaults": {
+    "audience": "泛短视频创作者",
+    "style": "自然、口语化"
+  }
+}

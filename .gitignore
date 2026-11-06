@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+
+# Local environment / secrets
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+
+# Local run output
+runs/
+
+# Packaging
+dist/
+
+# OS
+.DS_Store
+Thumbs.db

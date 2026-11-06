@@ -1,0 +1,145 @@
+{
+  "dataset": "synthetic",
+  "version": "1.0",
+  "notice": "本文件为笔试演示用合成素材，不是小影科技真实产品资料，不得对外作为产品宣传依据。",
+  "items": [
+    {
+      "id": "P01",
+      "product": "小影",
+      "name": "小影 · 字幕功能",
+      "synthetic": true,
+      "keywords": ["字幕", "口播", "静音观看"],
+      "facts": [
+        {
+          "claim_id": "P01-C1",
+          "text": "支持字幕",
+          "tags": ["功能"],
+          "source": "synthetic://materials/P01#C1"
+        }
+      ],
+      "usage_constraints": [
+        "只能陈述“支持字幕”这一条事实，不得延伸识别准确率、自动翻译、自动生成、效率提升等未提供的信息。"
+      ]
+    },
+    {
+      "id": "P02",
+      "product": "小影",
+      "name": "小影 · 一键成片",
+      "synthetic": true,
+      "keywords": ["一键成片", "成片", "模板", "导入", "导出"],
+      "facts": [
+        {
+          "claim_id": "P02-C1",
+          "text": "提供一键成片功能",
+          "tags": ["功能"],
+          "source": "synthetic://materials/P02#C1"
+        },
+        {
+          "claim_id": "P02-C2",
+          "text": "内置多种视频模板",
+          "tags": ["功能"],
+          "source": "synthetic://materials/P02#C2"
+        },
+        {
+          "claim_id": "P02-C3",
+          "text": "支持导入本地素材",
+          "tags": ["功能"],
+          "source": "synthetic://materials/P02#C3"
+        },
+        {
+          "claim_id": "P02-C4",
+          "text": "支持导出成片",
+          "tags": ["功能"],
+          "source": "synthetic://materials/P02#C4"
+        },
+        {
+          "claim_id": "P02-C5",
+          "text": "模板中的文字和音乐可以替换",
+          "tags": ["功能"],
+          "source": "synthetic://materials/P02#C5"
+        }
+      ],
+      "usage_constraints": [
+        "不得声称“自动生成爆款”“零门槛”“效率提升”等未提供的效果。"
+      ]
+    },
+    {
+      "id": "P03",
+      "product": "小影",
+      "name": "小影 · 模板库",
+      "synthetic": true,
+      "keywords": ["模板", "旅行", "美食", "日常", "竖屏", "9:16", "音乐"],
+      "facts": [
+        {
+          "claim_id": "P03-C1",
+          "text": "模板库覆盖旅行、美食、日常记录等场景",
+          "tags": ["内容"],
+          "source": "synthetic://materials/P03#C1"
+        },
+        {
+          "claim_id": "P03-C2",
+          "text": "模板可以替换文字和音乐",
+          "tags": ["功能"],
+          "source": "synthetic://materials/P03#C2"
+        },
+        {
+          "claim_id": "P03-C3",
+          "text": "支持竖屏 9:16 输出",
+          "tags": ["规格"],
+          "source": "synthetic://materials/P03#C3"
+        }
+      ],
+      "usage_constraints": [
+        "不得声称模板数量、更新频率、播放量等未提供的数据。"
+      ]
+    },
+    {
+      "id": "P04",
+      "product": "小影",
+      "name": "小影 · 高清导出",
+      "synthetic": true,
+      "keywords": ["导出", "1080P", "帧率", "高清", "60帧"],
+      "facts": [
+        {
+          "claim_id": "P04-C1",
+          "text": "支持 1080P 导出",
+          "tags": ["规格"],
+          "source": "synthetic://materials/P04#C1"
+        },
+        {
+          "claim_id": "P04-C2",
+          "text": "支持 30 帧和 60 帧导出",
+          "tags": ["规格"],
+          "source": "synthetic://materials/P04#C2"
+        }
+      ],
+      "usage_constraints": [
+        "不得声称 4K、HDR 等未提供的规格。"
+      ]
+    },
+    {
+      "id": "P05",
+      "product": "小影",
+      "name": "小影 · 会员权益",
+      "synthetic": true,
+      "keywords": ["会员", "水印", "高级模板", "导出"],
+      "facts": [
+        {
+          "claim_id": "P05-C1",
+          "text": "部分高级模板仅会员可用",
+          "tags": ["权益"],
+          "source": "synthetic://materials/P05#C1"
+        },
+        {
+          "claim_id": "P05-C2",
+          "text": "会员导出不带水印",
+          "tags": ["权益"],
+          "source": "synthetic://materials/P05#C2"
+        }
+      ],
+      "usage_constraints": [
+        "不得声称免费、永久、无限次等未提供的权益。"
+      ]
+    }
+  ]
+}

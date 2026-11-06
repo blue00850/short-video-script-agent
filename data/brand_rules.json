@@ -1,0 +1,55 @@
+{
+  "version": "1.0-synthetic",
+  "notice": "笔试演示用合成品牌规则，不代表小影科技真实审核标准。",
+  "global": {
+    "forbidden_phrases": [
+      "效率提升80%",
+      "效率提升 80%",
+      "效率提高80%",
+      "100%准确",
+      "百分之百准确",
+      "最强",
+      "第一名",
+      "绝对有效",
+      "保证有效",
+      "永久免费"
+    ],
+    "forbidden_patterns": [
+      "效率\\s*(提升|提高)\\s*\\d+\\s*%",
+      "\\d+\\s*%\\s*(准确|有效|提升)"
+    ],
+    "capability_lexicon": [
+      "字幕",
+      "一键成片",
+      "模板",
+      "导入",
+      "导出",
+      "1080P",
+      "30帧",
+      "60帧",
+      "水印",
+      "会员",
+      "自动识别",
+      "智能剪辑",
+      "翻译",
+      "提词",
+      "美颜",
+      "变速",
+      "画中画",
+      "竖屏",
+      "9:16",
+      "音乐"
+    ],
+    "min_shots": 3,
+    "max_shots": 8,
+    "required_fields": ["visual", "narration", "source_ids", "claim_ids"],
+    "duration_tolerance_low_ratio": 0.8
+  },
+  "platforms": {
+    "抖音": {"min_seconds": 5, "max_seconds": 180, "ratio": "9:16"},
+    "快手": {"min_seconds": 5, "max_seconds": 180, "ratio": "9:16"},
+    "视频号": {"min_seconds": 5, "max_seconds": 300, "ratio": "9:16"},
+    "B站": {"min_seconds": 10, "max_seconds": 600, "ratio": "16:9"},
+    "小红书": {"min_seconds": 5, "max_seconds": 300, "ratio": "9:16"}
+  }
+}

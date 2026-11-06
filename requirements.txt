@@ -1,0 +1,4 @@
+# No third-party runtime dependencies.
+# Python 3.8+ standard library only.
+# Install (optional): pip install -r requirements.txt
+# It is a no-op; kept so reviewers can see there is no hidden dependency.
