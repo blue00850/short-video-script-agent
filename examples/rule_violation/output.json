@@ -1,5 +1,5 @@
 {
-  "run_id": "20261106T143643-fd0a15",
+  "run_id": "20261106T151655-71714d",
   "status": "completed",
   "message": "脚本已通过时长、品牌规则和独立事实审核，可以交付。",
   "input": {
@@ -289,8 +289,8 @@
   },
   "trace_path": "F:\\小影科技笔试题\\examples\\rule_violation\\trace.jsonl",
   "timing": {
-    "started_at": "2026-11-06T14:36:43+08:00",
-    "finished_at": "2026-11-06T14:36:43+08:00",
-    "elapsed_seconds": 0.02
+    "started_at": "2026-11-06T15:16:55+08:00",
+    "finished_at": "2026-11-06T15:16:55+08:00",
+    "elapsed_seconds": 0.0
   }
 }

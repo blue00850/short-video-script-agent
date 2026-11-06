@@ -1,5 +1,5 @@
 {
-  "run_id": "20261106T143642-221963",
+  "run_id": "20261106T151654-9235b9",
   "status": "insufficient_evidence",
   "message": "素材库中没有找到“AI 数字人直播”相关事实，是否补充产品素材，或更换主题？",
   "input": {
@@ -48,8 +48,8 @@
   },
   "trace_path": "F:\\小影科技笔试题\\examples\\no_material\\trace.jsonl",
   "timing": {
-    "started_at": "2026-11-06T14:36:42+08:00",
-    "finished_at": "2026-11-06T14:36:42+08:00",
-    "elapsed_seconds": 0.02
+    "started_at": "2026-11-06T15:16:54+08:00",
+    "finished_at": "2026-11-06T15:16:54+08:00",
+    "elapsed_seconds": 0.0
   }
 }
