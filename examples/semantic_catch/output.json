@@ -1,0 +1,261 @@
+{
+  "run_id": "20261106T143644-5b1642",
+  "status": "completed",
+  "message": "脚本已通过时长、品牌规则和独立事实审核，可以交付。",
+  "input": {
+    "topic": "小影字幕功能",
+    "audience": "口播创作者",
+    "platform": "抖音",
+    "target_seconds": 30,
+    "style": "自然、口语化",
+    "product_id": "P01",
+    "materials_query": "小影字幕功能",
+    "brand_keywords": [],
+    "must_include": []
+  },
+  "output": {
+    "task_status": "completed",
+    "title": "字幕，让静音观看也不丢信息",
+    "shots": [
+      {
+        "index": 1,
+        "visual": "创作者回看刚拍完的素材，画面不错但没有字幕",
+        "narration": "很多人拍完视频才发现，画面不错，但没有字幕，静音观看的观众可能直接划走，非常可惜，真的别浪费好内容。",
+        "source_ids": [
+          "P01"
+        ],
+        "claim_ids": [
+          "P01-C1"
+        ]
+      },
+      {
+        "index": 2,
+        "visual": "给口播画面加上字幕，观众在静音状态下也能看懂",
+        "narration": "用字幕功能，把口播内容变成屏幕文字，照顾听不清或静音观看的人，更友好一些。",
+        "source_ids": [
+          "P01"
+        ],
+        "claim_ids": [
+          "P01-C1"
+        ]
+      },
+      {
+        "index": 3,
+        "visual": "逐句检查字幕断句和错字，调整出现时间",
+        "narration": "打开字幕，检查断句和错字，调整出现时间，让每句话都落在合适的位置，观看更顺畅也更省心。",
+        "source_ids": [
+          "P01"
+        ],
+        "claim_ids": [
+          "P01-C1"
+        ]
+      }
+    ],
+    "estimated_total_seconds": 28.0,
+    "target_seconds": 30,
+    "platform": "抖音",
+    "duration_check": {
+      "ok": true,
+      "total_seconds": 28.0,
+      "target_seconds": 30,
+      "accepted_low_seconds": 24.0,
+      "delta_seconds": -2.0,
+      "estimate": {
+        "total_seconds": 28.0,
+        "shots": [
+          {
+            "index": 1,
+            "cjk_chars": 44,
+            "en_words": 0,
+            "speech_seconds": 10.5,
+            "shot_seconds": 10.5
+          },
+          {
+            "index": 2,
+            "cjk_chars": 33,
+            "en_words": 0,
+            "speech_seconds": 7.9,
+            "shot_seconds": 7.9
+          },
+          {
+            "index": 3,
+            "cjk_chars": 38,
+            "en_words": 0,
+            "speech_seconds": 9.0,
+            "shot_seconds": 9.0
+          }
+        ],
+        "method": {
+          "zh_chars_per_second": 4.2,
+          "en_words_per_second": 2.5,
+          "transition_seconds": 0.2,
+          "min_shot_seconds": 2.0
+        }
+      }
+    },
+    "brand_check": {
+      "ok": true,
+      "errors": []
+    },
+    "materials_used": [
+      {
+        "material_id": "P01",
+        "material_name": "小影 · 字幕功能",
+        "claim_id": "P01-C1",
+        "text": "支持字幕",
+        "source": "synthetic://materials/P01#C1"
+      }
+    ],
+    "risks": [
+      "素材为合成数据，发布前需替换为真实产品资料。",
+      "P01 仅包含“支持字幕”一条事实，未延伸识别准确率、自动翻译等能力。"
+    ]
+  },
+  "check": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "checks": {
+      "claims": {
+        "ok": true,
+        "cited_claim_ids": [
+          "P01-C1"
+        ],
+        "unknown_sources": []
+      },
+      "title": {
+        "ok": true,
+        "ungrounded": []
+      },
+      "forbidden": {
+        "ok": true,
+        "hits": []
+      },
+      "numbers": {
+        "ok": true,
+        "ungrounded": []
+      },
+      "duration": {
+        "ok": true,
+        "total_seconds": 28.0,
+        "target_seconds": 30,
+        "accepted_low_seconds": 24.0,
+        "delta_seconds": -2.0,
+        "estimate": {
+          "total_seconds": 28.0,
+          "shots": [
+            {
+              "index": 1,
+              "cjk_chars": 44,
+              "en_words": 0,
+              "speech_seconds": 10.5,
+              "shot_seconds": 10.5
+            },
+            {
+              "index": 2,
+              "cjk_chars": 33,
+              "en_words": 0,
+              "speech_seconds": 7.9,
+              "shot_seconds": 7.9
+            },
+            {
+              "index": 3,
+              "cjk_chars": 38,
+              "en_words": 0,
+              "speech_seconds": 9.0,
+              "shot_seconds": 9.0
+            }
+          ],
+          "method": {
+            "zh_chars_per_second": 4.2,
+            "en_words_per_second": 2.5,
+            "transition_seconds": 0.2,
+            "min_shot_seconds": 2.0
+          }
+        }
+      },
+      "platform": {
+        "ok": true,
+        "platform": "抖音",
+        "rule": {
+          "min_seconds": 5,
+          "max_seconds": 180,
+          "ratio": "9:16"
+        }
+      },
+      "structure": {
+        "ok": true,
+        "shot_count": 3
+      }
+    },
+    "estimate": {
+      "total_seconds": 28.0,
+      "shots": [
+        {
+          "index": 1,
+          "cjk_chars": 44,
+          "en_words": 0,
+          "speech_seconds": 10.5,
+          "shot_seconds": 10.5
+        },
+        {
+          "index": 2,
+          "cjk_chars": 33,
+          "en_words": 0,
+          "speech_seconds": 7.9,
+          "shot_seconds": 7.9
+        },
+        {
+          "index": 3,
+          "cjk_chars": 38,
+          "en_words": 0,
+          "speech_seconds": 9.0,
+          "shot_seconds": 9.0
+        }
+      ],
+      "method": {
+        "zh_chars_per_second": 4.2,
+        "en_words_per_second": 2.5,
+        "transition_seconds": 0.2,
+        "min_shot_seconds": 2.0
+      }
+    }
+  },
+  "review": {
+    "verdict": "pass",
+    "findings": [],
+    "summary": "所有产品事实都能在素材 claim 中找到依据。",
+    "model": "mock-deterministic",
+    "usage": {
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0
+    }
+  },
+  "budget": {
+    "steps_used": 8,
+    "max_steps": 12,
+    "tool_calls_used": 5,
+    "max_tool_calls": 10,
+    "reviews_used": 2,
+    "max_reviews": 2,
+    "json_repairs_used": 0,
+    "max_json_repairs": 2,
+    "model_calls": 8
+  },
+  "usage": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0
+  },
+  "provider": {
+    "name": "mock",
+    "model": "mock-deterministic"
+  },
+  "trace_path": "F:\\小影科技笔试题\\examples\\semantic_catch\\trace.jsonl",
+  "timing": {
+    "started_at": "2026-11-06T14:36:44+08:00",
+    "finished_at": "2026-11-06T14:36:44+08:00",
+    "elapsed_seconds": 0.02
+  }
+}

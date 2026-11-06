@@ -1,0 +1,27 @@
+{
+  "run_id": null,
+  "status": "invalid_input",
+  "message": "输入缺少关键信息或格式不正确，任务未开始。",
+  "input": {
+    "topic": "小影字幕功能",
+    "audience": "短视频创作者",
+    "target_seconds": 30,
+    "style": "自然、口语化"
+  },
+  "output": {
+    "task_status": "invalid_input",
+    "errors": [
+      {
+        "field": "platform",
+        "message": "缺少投放平台（platform）"
+      }
+    ]
+  },
+  "check": null,
+  "review": null,
+  "budget": null,
+  "usage": null,
+  "provider": null,
+  "trace_path": "F:\\小影科技笔试题\\examples\\missing\\trace.jsonl",
+  "timing": null
+}
