@@ -100,6 +100,8 @@ python -m src.cli --provider openai `
 
 `.env.example` 不含任何真实密钥。`.env` 已加入 `.gitignore`。
 
+本仓库已保留两条真实运行（2026-11-06）：`normal` 首稿 15.7s 偏短 → 扩写 29.8s；`p01_30s` 首稿 9.4s → 扩写 27.5s。两条都先因第 1 镜缺 `claim_ids` 被工具拒绝，补齐后再检查。详见 `examples/real/` 与 `docs/03-evaluation.md` 第 2.3 节。真实模型没有复现 Mock 的 38→28，差异已如实记录。
+
 ---
 
 ## 3. 它如何做决策
@@ -124,7 +126,7 @@ python -m src.cli --provider openai `
 
 关键点：
 
-- **不是固定分支**：下一步由模型根据上一步的 observation 选择。例如 `check_rules` 返回 `duration_over` 后，模型选择再次 `draft_script`；`search_materials` 返回 `tool_timeout` 后，模型改写查询重试；两次检索都为 0 时，模型选择 `ask_user` 而不是编造。
+- **不是固定分支**：下一步由模型根据上一步的 observation 选择。例如 `check_rules` 返回 `duration_over` 后压缩、返回 `duration_under` 后扩写；`draft_script` 返回缺 `claim_ids` 时补齐字段；`search_materials` 返回 `tool_timeout` 后改写查询重试；两次检索都为 0 时，模型选择 `ask_user` 而不是编造。
 - **模型不能直接宣布成功**：`finish(completed)` 会被 Agent 重新跑一遍 `check_rules` 并检查 reviewer 结论；不满足就返回 `finish_rejected`，继续循环。
 - **明确失败**：6 秒目标 + 最少 3 镜头时，单镜 2.0s + 转场 0.2s，理论下限 6.6s，模型会给出计算并返回 `cannot_satisfy`，而不是硬凑。
 - **预算边界**：步数或工具调用耗尽返回 `step_limit_reached`，并附 `partial_script` 与已完成的检查，不伪装成完成。
@@ -180,7 +182,7 @@ python -m src.cli --provider openai `
 │  ├─ materials.json         # 合成素材 P01–P05
 │  ├─ brand_rules.json       # 禁用表达、能力词、平台时长
 │  └─ config.json            # 预算、时长参数、模型参数
-├─ examples/                 # 9 组输入、实际输出、Trace
+├─ examples/                 # 9 组 Mock 用例 + real/ 2 组真实模型 Trace
 ├─ tests/                    # 36 个 unittest
 ├─ scripts/run_examples.py
 └─ docs/01–05
@@ -190,8 +192,8 @@ python -m src.cli --provider openai `
 
 ## 6. 评审入口
 
-1. **先看结果**：`examples/p01_30s/output.json`（38→28 的修正结果）与 `examples/p01_30s/trace.jsonl`（每一步的动作、参数摘要、观察和一句决策依据）。
-2. **看覆盖**：`examples/eval-summary.md` 与 `docs/03-evaluation.md` 把 9 组用例映射到全部验收点。
+1. **先看结果**：`examples/p01_30s/output.json`（Mock 38→28）与 `examples/p01_30s/trace.jsonl`；再看 `examples/real/` 的真实模型记录（15.7→29.8、9.4→27.5）。每条 trace 都有动作、参数摘要、观察和一句决策依据。
+2. **看覆盖**：`examples/eval-summary.md` 与 `docs/03-evaluation.md` 把 9 组 Mock 用例映射到全部验收点，并单列真实模型 2 条路径。
 3. **看取舍**：`docs/02-solution.md` 解释为什么不用 LangGraph/ADK、为什么多一个 reviewer、为什么把时长做成确定性工具。
 4. **自己跑**：`python -m unittest discover -s tests -v`；`python scripts/run_examples.py`；或按第 1 节跑单条。
 5. **看限制**：`docs/03-evaluation.md` 的“未验证/失败”一节明确区分了 Mock 流程证据与真实模型效果。
@@ -200,8 +202,9 @@ python -m src.cli --provider openai `
 
 ## 7. 已知限制
 
-- 仓库内 9 组 examples 均由 `MockProvider` 生成，用于证明**编排、门禁、预算、Trace 和失败状态**；不能据此声称真实模型的决策质量或业务效果。
-- 真实模型接入代码已完成，但需要评审者/作者提供 `LLM_API_KEY` 后运行；没有密钥时 `--provider deepseek` 会明确返回 3，不会静默回退。
+- `examples/` 下 9 组 Mock 用例由 `MockProvider` 生成，用于证明**编排、门禁、预算、Trace 和失败状态**；不能据此声称真实模型的决策质量或业务效果。
+- `examples/real/` 有 2 条真实 DeepSeek 运行（normal、p01_30s），证明模型会观察工具结果并调整；但只有 2 条、各 1 次，没有覆盖真实模型的无素材/工具失败/无法满足路径，也不能外推为业务效果。
+- 真实模型接入需要 `LLM_API_KEY`；没有密钥时 `--provider deepseek` 会明确返回 3，不会静默回退。
 - 时长估算是**旁白文本的近似值**，不含画面节奏、停顿、音乐、转场特效；4.2 字/秒是经验参数，真实创作需要人工试听。
 - 规则检查是确定性的启发式：能抓住禁用词、无依据数字、能力词延伸和结构问题，但不能覆盖所有语义细微差别；reviewer 是第二道防线，不是绝对保证。
 - 当前只做 CLI，没有 Web UI；多 Agent 仅限 Writer + FactReviewer，没有做生产级 Runtime、队列、鉴权或并发。

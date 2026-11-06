@@ -1,47 +1,81 @@
-﻿python : test_missing_platform_is_invalid_input_with_exit_5 (test_cli.CliTests) ... ok
-所在位置 行:1 字符: 177
-+ ... NCODING='utf-8'; python -m unittest discover -s tests -v 2>&1 | Out-F ...
-+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : NotSpecified: (test_missing_pl...liTests) ... ok:String) [], RemoteException
-    + FullyQualifiedErrorId : NativeCommandError
- 
+test_missing_platform_is_invalid_input_with_exit_5 (test_cli.CliTests) ... ok
+
 test_normal_run_writes_result_and_trace (test_cli.CliTests) ... ok
+
 test_step_limit_exit_code (test_cli.CliTests) ... ok
+
 test_unknown_fault_is_rejected_before_running (test_cli.CliTests) ... ok
+
 test_finish_gate_rejects_completion_before_script_and_review (test_core.AgentTests) ... ok
+
 test_impossible_duration_returns_cannot_satisfy_with_calculation (test_core.AgentTests) ... ok
+
 test_json_repair_is_bounded_and_recorded (test_core.AgentTests) ... ok
+
 test_no_material_asks_for_evidence_instead_of_fabricating (test_core.AgentTests) ... ok
+
 test_normal_run_completes_with_trace_and_grounding (test_core.AgentTests) ... ok
+
 test_p01_38_seconds_is_revised_to_28_after_check (test_core.AgentTests) ... ok
+
 test_rule_violation_is_removed_before_finish (test_core.AgentTests) ... ok
+
 test_semantic_review_catches_unsupported_paraphrase (test_core.AgentTests) ... ok
+
 test_step_limit_returns_explicit_incomplete_state (test_core.AgentTests) ... ok
+
 test_three_consecutive_tool_errors_return_tool_error (test_core.AgentTests) ... ok
+
 test_tool_call_limit_returns_explicit_incomplete_state (test_core.AgentTests) ... ok
+
 test_tool_failure_is_observed_and_query_is_rewritten (test_core.AgentTests) ... ok
+
 test_minimum_shot_duration_wins_over_short_narration (test_core.DurationTests) ... ok
+
 test_normal_p02_is_28_seconds (test_core.DurationTests) ... ok
+
 test_p01_first_draft_is_38_seconds (test_core.DurationTests) ... ok
+
 test_p01_revision_is_28_seconds (test_core.DurationTests) ... ok
+
 test_reviewer_fails_unsupported_paraphrase (test_core.ReviewerTests) ... ok
+
 test_reviewer_passes_grounded_script (test_core.ReviewerTests) ... ok
+
 test_duration_over_and_under (test_core.RuleTests) ... ok
+
 test_forbidden_efficiency_claim_is_rejected (test_core.RuleTests) ... ok
+
 test_impossible_target_is_duration_over (test_core.RuleTests) ... ok
+
 test_source_claim_mismatch_is_rejected (test_core.RuleTests) ... ok
+
 test_title_is_checked_for_ungrounded_capability (test_core.RuleTests) ... ok
+
 test_ungrounded_capability_is_rejected (test_core.RuleTests) ... ok
+
 test_unknown_claim_is_rejected (test_core.RuleTests) ... ok
+
 test_well_grounded_script_passes (test_core.RuleTests) ... ok
+
 test_step_trace_contains_args_reason_and_observation (test_core.TraceTests) ... ok
+
 test_aliases_are_normalized (test_core.ValidationTests) ... ok
+
 test_decision_rejects_unknown_action (test_core.ValidationTests) ... ok
+
 test_extract_json_tolerates_fences_and_text (test_core.ValidationTests) ... ok
+
 test_missing_platform_is_invalid_input (test_core.ValidationTests) ... ok
+
 test_target_must_be_an_integer_in_range (test_core.ValidationTests) ... ok
 
+
+
 ----------------------------------------------------------------------
-Ran 36 tests in 0.091s
+
+Ran 36 tests in 0.106s
+
+
 
 OK

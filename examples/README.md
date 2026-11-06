@@ -25,7 +25,7 @@ examples/<case>/
 | `step_limit/` | `step_limit_reached` | 预算上限 | 2 步耗尽，partial 28.0，未 review |
 | `missing/` | `invalid_input` | 缺关键信息 | 缺 platform，任务不开始，退出码 5 |
 
-`examples/real/` 是真实模型 trace 的预留目录；本次没有 API key，因此没有伪造真实模型输出，只放了复现说明。
+`examples/real/` 是 2 组真实模型记录（`normal`、`p01_30s`），与上面的 Mock 回归集分开，不参与 `scripts/run_examples.py`。真实模型是“首稿偏短 → 扩写”，不是 Mock 的“38→28”；详见 `examples/real/README.md` 与 `docs/03-evaluation.md` 第 2.3 节。
 
 ## Trace 怎么读
 

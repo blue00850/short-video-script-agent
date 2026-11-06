@@ -1,0 +1,395 @@
+{
+  "run_id": "20261106T150220-c0ffda",
+  "status": "completed",
+  "message": "脚本已完成：抖音竖屏 6 镜头，预计 29.8 秒（目标 30 秒），口语化快节奏，按“发愁→一键成片→导入素材→选模板→替换文字音乐→导出”的新手流程展开。全部卖点仅引用 P02 的 C1–C5，规则检查与事实审核均通过。",
+  "input": {
+    "topic": "小影一键成片怎么帮新手快速出片",
+    "audience": "刚做短视频的新手",
+    "platform": "抖音",
+    "target_seconds": 30,
+    "style": "口语化、节奏快",
+    "product_id": "P02",
+    "materials_query": "小影一键成片怎么帮新手快速出片",
+    "brand_keywords": [],
+    "must_include": []
+  },
+  "output": {
+    "task_status": "completed",
+    "title": "新手30秒出片：小影一键成片",
+    "shots": [
+      {
+        "index": 1,
+        "visual": "新手对着手机里一堆杂乱素材发愁，画面快速推近",
+        "narration": "刚做短视频，素材一堆，完全不知道从哪开始剪？",
+        "source_ids": [
+          "P02"
+        ],
+        "claim_ids": [
+          "P02-C1"
+        ]
+      },
+      {
+        "index": 2,
+        "visual": "打开小影，点击一键成片按钮，界面动效",
+        "narration": "别慌，打开小影，点一下一键成片，先让流程跑起来。",
+        "source_ids": [
+          "P02"
+        ],
+        "claim_ids": [
+          "P02-C1"
+        ]
+      },
+      {
+        "index": 3,
+        "visual": "导入手机相册里的本地视频和照片",
+        "narration": "手机里拍好的视频和照片，直接导入本地素材就行。",
+        "source_ids": [
+          "P02"
+        ],
+        "claim_ids": [
+          "P02-C3"
+        ]
+      },
+      {
+        "index": 4,
+        "visual": "模板列表快速滑动，选中一个模板",
+        "narration": "小影内置多种视频模板，左右滑一滑，挑一个顺眼的。",
+        "source_ids": [
+          "P02"
+        ],
+        "claim_ids": [
+          "P02-C2"
+        ]
+      },
+      {
+        "index": 5,
+        "visual": "替换模板里的文字和背景音乐，手指点选",
+        "narration": "模板里的文字和音乐都能替换，换成你自己的内容。",
+        "source_ids": [
+          "P02"
+        ],
+        "claim_ids": [
+          "P02-C5"
+        ]
+      },
+      {
+        "index": 6,
+        "visual": "点击导出，进度条走完，成片出现在相册",
+        "narration": "最后点导出，成片就出来了，直接发抖音试试。",
+        "source_ids": [
+          "P02"
+        ],
+        "claim_ids": [
+          "P02-C4"
+        ]
+      }
+    ],
+    "estimated_total_seconds": 29.8,
+    "target_seconds": 30,
+    "platform": "抖音",
+    "duration_check": {
+      "ok": true,
+      "total_seconds": 29.8,
+      "target_seconds": 30,
+      "accepted_low_seconds": 24.0,
+      "delta_seconds": -0.2,
+      "estimate": {
+        "total_seconds": 29.8,
+        "shots": [
+          {
+            "index": 1,
+            "cjk_chars": 19,
+            "en_words": 0,
+            "speech_seconds": 4.5,
+            "shot_seconds": 4.5
+          },
+          {
+            "index": 2,
+            "cjk_chars": 20,
+            "en_words": 0,
+            "speech_seconds": 4.8,
+            "shot_seconds": 4.8
+          },
+          {
+            "index": 3,
+            "cjk_chars": 21,
+            "en_words": 0,
+            "speech_seconds": 5.0,
+            "shot_seconds": 5.0
+          },
+          {
+            "index": 4,
+            "cjk_chars": 21,
+            "en_words": 0,
+            "speech_seconds": 5.0,
+            "shot_seconds": 5.0
+          },
+          {
+            "index": 5,
+            "cjk_chars": 21,
+            "en_words": 0,
+            "speech_seconds": 5.0,
+            "shot_seconds": 5.0
+          },
+          {
+            "index": 6,
+            "cjk_chars": 18,
+            "en_words": 0,
+            "speech_seconds": 4.3,
+            "shot_seconds": 4.3
+          }
+        ],
+        "method": {
+          "zh_chars_per_second": 4.2,
+          "en_words_per_second": 2.5,
+          "transition_seconds": 0.2,
+          "min_shot_seconds": 2.0
+        }
+      }
+    },
+    "brand_check": {
+      "ok": true,
+      "errors": []
+    },
+    "materials_used": [
+      {
+        "material_id": "P02",
+        "material_name": "小影 · 一键成片",
+        "claim_id": "P02-C1",
+        "text": "提供一键成片功能",
+        "source": "synthetic://materials/P02#C1"
+      },
+      {
+        "material_id": "P02",
+        "material_name": "小影 · 一键成片",
+        "claim_id": "P02-C3",
+        "text": "支持导入本地素材",
+        "source": "synthetic://materials/P02#C3"
+      },
+      {
+        "material_id": "P02",
+        "material_name": "小影 · 一键成片",
+        "claim_id": "P02-C2",
+        "text": "内置多种视频模板",
+        "source": "synthetic://materials/P02#C2"
+      },
+      {
+        "material_id": "P02",
+        "material_name": "小影 · 一键成片",
+        "claim_id": "P02-C5",
+        "text": "模板中的文字和音乐可以替换",
+        "source": "synthetic://materials/P02#C5"
+      },
+      {
+        "material_id": "P02",
+        "material_name": "小影 · 一键成片",
+        "claim_id": "P02-C4",
+        "text": "支持导出成片",
+        "source": "synthetic://materials/P02#C4"
+      }
+    ],
+    "risks": [
+      "素材为 synthetic 来源，上线前建议用真实产品界面录屏替换示意画面",
+      "未使用任何效果类承诺（如爆款、零门槛、效率提升），符合素材使用限制",
+      "用户未提供品牌关键词与必含内容，脚本未额外添加"
+    ]
+  },
+  "check": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "checks": {
+      "claims": {
+        "ok": true,
+        "cited_claim_ids": [
+          "P02-C1",
+          "P02-C2",
+          "P02-C3",
+          "P02-C4",
+          "P02-C5"
+        ],
+        "unknown_sources": []
+      },
+      "title": {
+        "ok": true,
+        "ungrounded": []
+      },
+      "forbidden": {
+        "ok": true,
+        "hits": []
+      },
+      "numbers": {
+        "ok": true,
+        "ungrounded": []
+      },
+      "duration": {
+        "ok": true,
+        "total_seconds": 29.8,
+        "target_seconds": 30,
+        "accepted_low_seconds": 24.0,
+        "delta_seconds": -0.2,
+        "estimate": {
+          "total_seconds": 29.8,
+          "shots": [
+            {
+              "index": 1,
+              "cjk_chars": 19,
+              "en_words": 0,
+              "speech_seconds": 4.5,
+              "shot_seconds": 4.5
+            },
+            {
+              "index": 2,
+              "cjk_chars": 20,
+              "en_words": 0,
+              "speech_seconds": 4.8,
+              "shot_seconds": 4.8
+            },
+            {
+              "index": 3,
+              "cjk_chars": 21,
+              "en_words": 0,
+              "speech_seconds": 5.0,
+              "shot_seconds": 5.0
+            },
+            {
+              "index": 4,
+              "cjk_chars": 21,
+              "en_words": 0,
+              "speech_seconds": 5.0,
+              "shot_seconds": 5.0
+            },
+            {
+              "index": 5,
+              "cjk_chars": 21,
+              "en_words": 0,
+              "speech_seconds": 5.0,
+              "shot_seconds": 5.0
+            },
+            {
+              "index": 6,
+              "cjk_chars": 18,
+              "en_words": 0,
+              "speech_seconds": 4.3,
+              "shot_seconds": 4.3
+            }
+          ],
+          "method": {
+            "zh_chars_per_second": 4.2,
+            "en_words_per_second": 2.5,
+            "transition_seconds": 0.2,
+            "min_shot_seconds": 2.0
+          }
+        }
+      },
+      "platform": {
+        "ok": true,
+        "platform": "抖音",
+        "rule": {
+          "min_seconds": 5,
+          "max_seconds": 180,
+          "ratio": "9:16"
+        }
+      },
+      "structure": {
+        "ok": true,
+        "shot_count": 6
+      }
+    },
+    "estimate": {
+      "total_seconds": 29.8,
+      "shots": [
+        {
+          "index": 1,
+          "cjk_chars": 19,
+          "en_words": 0,
+          "speech_seconds": 4.5,
+          "shot_seconds": 4.5
+        },
+        {
+          "index": 2,
+          "cjk_chars": 20,
+          "en_words": 0,
+          "speech_seconds": 4.8,
+          "shot_seconds": 4.8
+        },
+        {
+          "index": 3,
+          "cjk_chars": 21,
+          "en_words": 0,
+          "speech_seconds": 5.0,
+          "shot_seconds": 5.0
+        },
+        {
+          "index": 4,
+          "cjk_chars": 21,
+          "en_words": 0,
+          "speech_seconds": 5.0,
+          "shot_seconds": 5.0
+        },
+        {
+          "index": 5,
+          "cjk_chars": 21,
+          "en_words": 0,
+          "speech_seconds": 5.0,
+          "shot_seconds": 5.0
+        },
+        {
+          "index": 6,
+          "cjk_chars": 18,
+          "en_words": 0,
+          "speech_seconds": 4.3,
+          "shot_seconds": 4.3
+        }
+      ],
+      "method": {
+        "zh_chars_per_second": 4.2,
+        "en_words_per_second": 2.5,
+        "transition_seconds": 0.2,
+        "min_shot_seconds": 2.0
+      }
+    }
+  },
+  "review": {
+    "verdict": "pass",
+    "findings": [],
+    "summary": "六个镜头均只引用了 P02 的对应 claim，未新增功能、数字或效果承诺，标题中的“30秒出片”对应目标时长而非产品承诺，整体无事实性编造。",
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 2159,
+      "completion_tokens": 61,
+      "total_tokens": 2220,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 2159
+    }
+  },
+  "budget": {
+    "steps_used": 9,
+    "max_steps": 12,
+    "tool_calls_used": 7,
+    "max_tool_calls": 10,
+    "reviews_used": 1,
+    "max_reviews": 2,
+    "json_repairs_used": 0,
+    "max_json_repairs": 2,
+    "model_calls": 9
+  },
+  "usage": {
+    "prompt_tokens": 32288,
+    "completion_tokens": 2257,
+    "total_tokens": 34545
+  },
+  "provider": {
+    "name": "openai-compatible",
+    "model": "deepseek-chat"
+  },
+  "trace_path": "examples\\real\\normal.trace.jsonl",
+  "timing": {
+    "started_at": "2026-11-06T15:02:20+08:00",
+    "finished_at": "2026-11-06T15:02:42+08:00",
+    "elapsed_seconds": 21.91
+  }
+}

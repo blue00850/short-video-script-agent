@@ -10,7 +10,7 @@
 | 规则层 | 时长、镜头数、claim、数字、禁用表达 | `tests/test_core.py` 的 Rule/Duration 测试 |
 | 语义层 | 只声明“支持字幕”时是否写了“不用手动打字” | `examples/semantic_catch/` + Reviewer 测试 |
 
-**重要边界**：仓库里的 9 组 examples 都由 `MockProvider` 生成。它们证明的是“给定这些工具结果，Agent 的循环、门禁、状态和 Trace 正确”，**不证明真实 DeepSeek/其他模型也会做出同样决策**。真实模型接入代码已完成，但本次没有可用的 `LLM_API_KEY`，因此 `examples/real/` 没有伪造的运行记录。
+**重要边界**：`examples/` 下的 9 组流程用例由 `MockProvider` 生成，证明的是“给定这些工具结果，Agent 的循环、门禁、状态和 Trace 正确”。另有 2 组真实 DeepSeek 运行记录在 `examples/real/`（`normal`、`p01_30s`），证明在该 JSON schema 与工具集下，真实模型会观察工具结果并调整动作；但 2 条路径不能代表所有主题、所有模型或业务效果。两类证据在目录和文档中始终分开。
 
 ## 2. 九组用例：预期 vs 实际
 
@@ -81,6 +81,29 @@
 
 `step_limit` 的最终输出包含 `partial_script`、`estimated_total_seconds=28.0`、`checks=null`，状态 `step_limit_reached`，不会把半成品标成 `completed`。
 
+## 2.3 真实模型运行结果（DeepSeek，2026-11-06）
+
+两条命令使用 `.env` 中的 `LLM_API_KEY`，provider=`deepseek`，配置模型 `deepseek-chat`，temperature=0.2。完整输出与逐 step trace：
+
+- `examples/real/normal.output.json`、`examples/real/normal.trace.jsonl`
+- `examples/real/p01_30s.output.json`、`examples/real/p01_30s.trace.jsonl`
+
+| 用例 | 真实模型实际动作链 | 最终结果 |
+| --- | --- | --- |
+| `normal`（P02/30s） | search 1 命中 → get P02 → draft 15.7s（第 1 镜缺 `claim_ids`，工具返回 `invalid_script`）→ 补齐后 draft 成功 → check 报 `duration_under`（15.7 < 24.0）→ 扩写 → check pass（29.8s）→ review pass → finish | `completed`，6 镜，29.8s，P02-C1–C5，9 步 / 7 次工具 / 1 次 review |
+| `p01_30s`（P01/30s） | search 1 命中 → get P01（仅“支持字幕”）→ draft 9.4s（同样第 1 镜缺 `claim_ids`，被工具拒绝）→ 补齐 → check 报 `duration_under`（9.4 < 24.0）→ 扩写到 4 镜 → check pass（27.5s）→ review pass → finish | `completed`，4 镜，27.5s，仅 P01-C1，9 步 / 7 次工具 / 1 次 review |
+
+这两条真实 trace 的价值不在“数字碰巧接近 30 秒”，而在于相邻步骤的因果关系：
+
+1. **工具拒绝 → 模型改参数**：`draft_script` 返回 `第 1 个镜头缺少 claim_ids`，下一步不是重试同一份草稿，而是给第 1 镜补 `P02-C1` / `P01-C1`；`reason` 写明“补齐每镜 claim_ids”。
+2. **检查失败 → 模型改内容**：`check_rules` 返回 `duration_under` 和具体差额，下一步 `draft_script` 扩写旁白，再调用 `check_rules`；不是固定重试。
+3. **机械检查通过 ≠ 结束**：两条都继续调用 `review_facts`，reviewer 独立返回 `pass` 后才 `finish`。
+4. **事实约束生效**：P01 真实稿只引用 `P01-C1`，最终 `materials_used` 只有这一条；没有出现“自动识别”“不用手动打字”等未提供能力。
+
+**与 Mock 参考实例的差异（必须如实说明）**：Mock 的 `p01_30s` 是题目给的“首稿 38.0 → 压缩到 28.0”；真实模型没有先写超长，而是首稿 9.4 秒偏短，随后**扩写**到 27.5 秒。两者都完成了“检查 → 调整 → 复查”的闭环，但方向不同。真实记录不支持“真实模型复现了 38→28”这种说法；38→28 的证据是 `examples/p01_30s/` 的 Mock 运行。
+
+另外，reviewer 返回的 `model` 字段是 `deepseek-flash`（服务端标识），而 CLI 配置与 `run_start` 记录的是 `deepseek-chat`；本文保留原始字段，不把两者混写。
+
 ## 3. 测试结果
 
 命令：
@@ -92,7 +115,7 @@ python -m unittest discover -s tests -v
 实际结果（2026-11-06）：
 
 ```text
-Ran 36 tests in 0.081s
+Ran 36 tests in 0.106s
 
 OK
 ```
@@ -119,12 +142,15 @@ OK
 2. **时长断言写错**：最初把 `shot_seconds` 当成“含转场”，期望 `[10.0, 8.8, 8.4]`，实际是单镜 speech `[13.8, 12.1, 11.4]`；单镜下限测试实际 `[2.0, 2.0, 2.0]` 而非 `[2.2, ...]`。修的是测试期望，不是产品逻辑；总时长仍 38.0/6.6。
 3. **禁用表达重复**：首版规则同时命中 phrase 和 regex，同一条“效率提升80%”报 3 次；已按归一化文本去重，现在 rule_violation 首检是 3 条不同错误。
 4. **Test 断言被 risks 干扰**：`rule_violation` 的 `risks` 会有意写“用户要求的效率提升80%无依据”，导致全文搜关键词会误判；改为只检查 `output.shots`。
+5. **首次真实模型启动失败**：`python -m src.cli --provider deepseek ...` 报 `初始化失败：'NoneType' object has no attribute 'get'`。原因是 `src/env.py` 的 `load_env()` 只把值写入 `os.environ`、返回 `None`，而 CLI 写成了 `load_env().get("LLM_API_KEY")`。修法是让 `load_env()` 返回解析后的 `dict`，同时保留“不覆盖已有环境变量、不打印值”的行为；修复后两条真实运行成功。这个 bug 在 Mock 测试里不会暴露，因为 Mock 分支不读 `.env`。
 
 这些失败都已修复，并保留在测试/文档中，作为“验证不是走过场”的证据。
 
 ## 5. 未验证 / 限制
 
-- **真实模型未运行**：没有 `LLM_API_KEY`，`examples/` 全部是 Mock。真实模型是否会按同样的 JSON schema、是否会在 38s 后主动压缩、是否会编造事实，尚未用数据证明。`examples/real/README.md` 给出复现命令；拿到 key 后应至少跑 normal 与 p01_30s 两条，并人工核对 trace。
+- **真实模型只跑了 2 条**：`normal` 与 `p01_30s` 各 1 次，均为 `completed`；没有重复采样，也没有覆盖 `no_material`、`tool_failure`、`impossible`、`rule_violation` 等真实路径。真实模型在“无素材时是否追问”“工具连续失败是否停”“规则冲突是否删除”上的行为，仍只有 Mock 证据。`examples/real/README.md` 给出复现命令。
+- **真实模型没有复现 38→28**：它先写短（9.4s）再扩写到 27.5s，属于“时长不足修正”；“超时长压缩”的证据是 `examples/p01_30s/` 的 Mock。这个差异是真实运行结果，不应改写。
+- **reviewer 的 model 字段**：reviewer 返回 `deepseek-flash`，而 CLI 配置是 `deepseek-chat`；记录保留原值，说明服务端路由/标识与配置名不完全一致，未进一步追查。
 - **Mock 的“决策”是预置的**：它按场景返回不同动作，能验证循环和门禁，但不能当作模型能力证据。文档和 README 都明确标注。
 - **时长是文本近似**：4.2 字/秒是经验值；没有真实配音、停顿、音乐、画面节奏数据。`duration_check` 只能作为创作前的估算。
 - **规则是启发式**：能力词表、数字豁免、禁用正则都可能漏判/误判；reviewer 是补充，不是绝对保证。
@@ -146,6 +172,17 @@ python -m src.cli --provider mock --mock-scenario p01_30s `
   --input examples/p01_30s/input.json `
   --out examples/p01_30s/output.json `
   --trace examples/p01_30s/trace.jsonl
+
+# 真实模型（需要 .env 中的 LLM_API_KEY；会消耗 API 配额）
+python -m src.cli --provider deepseek `
+  --input examples/normal/input.json `
+  --out examples/real/normal.output.json `
+  --trace examples/real/normal.trace.jsonl
+
+python -m src.cli --provider deepseek `
+  --input examples/p01_30s/input.json `
+  --out examples/real/p01_30s.output.json `
+  --trace examples/real/p01_30s.trace.jsonl
 ```
 
-所有结果均可在无网络、无第三方包的 Python 3.8+ 环境复现。
+Mock 结果可在无网络、无第三方包的 Python 3.8+ 环境复现；真实模型结果需要有效 API key，数字会随模型版本和采样变化。

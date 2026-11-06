@@ -1,6 +1,6 @@
 # 验证摘要（examples）
 
-> 生成方式：`python scripts/run_examples.py`，provider=`mock`。这些是**流程证据**，不是真实模型效果；原因与边界见 `docs/03-evaluation.md`。
+> 生成方式：`python scripts/run_examples.py`，provider=`mock`。这些是**流程证据**，不是真实模型效果。真实模型另有 2 条记录在 `examples/real/`，见第 4.1 节与 `docs/03-evaluation.md` 第 2.3 节。
 
 ## 1. 总表
 
@@ -106,12 +106,21 @@ step 6 finish        obs={"status":"cannot_satisfy","message":"3 个镜头 × �
 
 ```text
 python -m unittest discover -s tests -v
-Ran 36 tests in 0.081s
+Ran 36 tests in 0.106s
 OK
 ```
 
 完整输出：`examples/test-results.txt`。
 
+### 4.1 真实模型 2 条（与 Mock 分开）
+
+| 用例 | 真实动作链 | 最终 |
+| --- | --- | --- |
+| `real/normal` | search P02 1 命中 → get → draft 15.7s（第 1 镜缺 claim_ids 被拒）→ 补齐 → check `duration_under` → 扩写 → check pass 29.8s → review pass → finish | `completed`，6 镜，29.8s |
+| `real/p01_30s` | search P01 1 命中 → get（仅“支持字幕”）→ draft 9.4s（同样缺 claim_ids 被拒）→ 补齐 → check `duration_under` → 扩写 4 镜 → check pass 27.5s → review pass → finish | `completed`，4 镜，27.5s，仅 P01-C1 |
+
+真实 trace 在 `examples/real/normal.trace.jsonl`、`p01_30s.trace.jsonl`。注意：真实模型是“先短后扩写”，与 Mock 的“先 38 后压缩”方向不同；不能把 38→28 说成真实模型结果。
+
 ## 5. 一句话结论
 
-在 Mock 编排下，9 条路径全部达到预期状态；最关键的 p01_30s 完成了“38.0 → 检查失败 → 28.0 → 复查通过 → 独立审核通过”的闭环。真实模型效果尚未验证，不能把本摘要当作真实模型能力或业务效果数据。
+在 Mock 编排下，9 条路径全部达到预期状态；最关键的 p01_30s 完成了“38.0 → 检查失败 → 28.0 → 复查通过 → 独立审核通过”的闭环。真实模型 2 条都出现了“工具拒绝/时长不足 → 调整 → 复查”的真实决策链，但样本只有 2 条，不能当作业绩或泛化能力数据。

@@ -1,47 +1,50 @@
-# 真实模型运行记录（预留）
+# 真实模型运行记录
 
-本目录用于存放**真实模型**产生的 `output.json` 与 `trace.jsonl`，与 `examples/` 下的 Mock 记录分开，避免把 Mock 说成真实模型效果。
+本目录存放**真实模型**产生的 `output.json` 与 `trace.jsonl`，与 `examples/` 下的 Mock 记录分开，避免把 Mock 说成真实模型效果。
 
-## 当前状态
+## 当前记录
 
-**空。** 本次开发没有可用的 `LLM_API_KEY`，因此没有生成真实模型 trace；没有用 Mock 冒充。
+2026-11-06 15:02（Asia/Shanghai），provider=`deepseek`，CLI 配置 `LLM_MODEL=deepseek-chat`，temperature=0.2。key 只在本地 `.env`，未提交。
 
-## 如何生成
+| 用例 | 输出 | Trace | 结果 |
+| --- | --- | --- | --- |
+| `normal`（P02，30s） | `normal.output.json` | `normal.trace.jsonl` | `completed`，6 镜，29.8s，review pass，9 步 / 7 工具 |
+| `p01_30s`（P01，30s） | `p01_30s.output.json` | `p01_30s.trace.jsonl` | `completed`，4 镜，27.5s，仅 P01-C1，review pass，9 步 / 7 工具 |
 
-1. 复制环境模板并填入 key（不要把 `.env` 提交）：
-
-```powershell
-Copy-Item .env.example .env
-# 编辑 .env：LLM_API_KEY=sk-...
-```
-
-2. 跑两条最小路径（normal 与 p01_30s）：
+两条命令：
 
 ```powershell
 python -m src.cli --provider deepseek `
   --input examples/normal/input.json `
-  --out examples/real/normal.json `
+  --out examples/real/normal.output.json `
   --trace examples/real/normal.trace.jsonl
 
 python -m src.cli --provider deepseek `
   --input examples/p01_30s/input.json `
-  --out examples/real/p01_30s.json `
+  --out examples/real/p01_30s.output.json `
   --trace examples/real/p01_30s.trace.jsonl
 ```
 
-3. 检查真实 trace 是否出现：
+## 实际发生了什么
 
-- 模型是否先 `search_materials`，而不是直接写；
-- 38.0s 后是否 `check_rules` 并看到 `duration_over`；
-- 下一步是否 `draft_script`，且重新 `check_rules`；
-- 是否调用 `review_facts`；
-- JSON 是否合法，是否触发 `json_repair`；
-- 最终是 `completed`、`cannot_satisfy` 还是 `step_limit_reached`。
+两条都不是“一次写对”，而是由工具结果驱动了下一步：
 
-4. 把结果补进 `docs/03-evaluation.md` 的“真实模型结果”一节；如果模型表现与 Mock 不同，如实记录差异，不要改写成 Mock 的结果。
+1. `draft_script` 第一次返回 `invalid_script: 第 1 个镜头缺少 claim_ids`；模型下一步补齐 `P02-C1` / `P01-C1`，再提交。
+2. `check_rules` 第一次返回 `duration_under`：normal 为 15.7s（下限 24.0s），p01 为 9.4s；模型下一步扩写旁白/镜头，再调用 `check_rules`。
+3. 复查通过后，模型仍调用 `review_facts`；reviewer 返回 `pass` 后才 `finish`。
+
+因此两条路径都满足“模型选择动作 → 执行工具 → 观察结果 → 调整下一步或结束”，且调整点不同：一条是补字段，一条是改时长。
+
+## 与 Mock 参考实例的差异
+
+- Mock 的 `examples/p01_30s/` 是题目给的“首稿 38.0s → 压缩到 28.0s”。
+- 真实模型没有先写超长，而是首稿 9.4s 偏短，随后**扩写**到 27.5s。
+- 两者都完成了“检查 → 调整 → 复查”，但方向不同；真实记录**不能**用来声称“真实模型复现了 38→28”。
+- 这次只跑了 2 条，没有覆盖真实模型的无素材、工具失败、规则冲突、无法满足路径；这些路径的现有证据是 Mock。
 
 ## 注意
 
-- 真实模型可能不按 schema 输出、可能跳过 `get_material`、可能在 38s 后不压缩；这些都应该记录，而不是用 Mock 覆盖。
+- 真实模型可能不按 schema 输出、可能跳过 `get_material`、可能改写事实；这些都应记录，而不是用 Mock 覆盖。
+- reviewer 返回的 `model` 字段是 `deepseek-flash`，CLI 配置与 `run_start` 是 `deepseek-chat`；这里保留服务端原值，不把两者混写。
 - 不要提交 `.env`、API key、真实用户数据或未公开产品资料。
-- 如果模型失败，保留失败 trace；失败记录比“只放成功案例”更有说服力。
+- 失败 trace 比“只放成功案例”更有说服力；如果复跑失败，保留失败记录。
